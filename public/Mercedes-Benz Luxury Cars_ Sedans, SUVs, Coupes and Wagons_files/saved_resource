@@ -1,0 +1,14 @@
+var nm_mt_rand = '1249239711';
+var nm_tag_uri = 'http://';
+var nm_query_str = 'aid=1054';
+
+if (document.createElement && document.body) {
+  var i=document.createElement('IMG');
+  i.src='http://ad.yieldmanager.com/pixel?id=1923018&t=2';
+  i.width=1;
+  i.height=1;
+  i.border=0;
+  document.body.appendChild(i);
+}
+
+ 

@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+body {
+  background-color: #222;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.chat-icon-bg{
+   width : 60px;
+   height: 60px;
+   border-radius: 5px;
+   padding-top: 10px;
+   padding-left: 10px;
+   background: rgba(34,34,34,0.6);
+   /*background-color: #7890E890*/
+   margin: auto;
+   position: absolute;
+   right: 1vw;
+   bottom: 1vh;
+   box-shadow: 0 0 20px #000;
+
+
+}
+
+.chat {
+  width: 300px;
+  height: 70vh;
+  max-height: calc(100vh - 80px);
+  background-color: rgba(160,160,160,0.7);;
+  position: absolute;
+  /*border: 5px solid #000;*/
+  border-top-left-radius: 20px;
+  overflow: hidden;
+  /*box-shadow: 0 0 20px #000;*/
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  box-sizing: border-box;
+}
+.chat .messages {
+  position: absolute;
+  left: 0;
+  bottom: 60px;
+  height: auto;
+  width: 100%;
+  overflow-y: hidden;
+}
+.chat .messages .message {
+  padding: 20px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.chat .messages .message .you, .chat .messages .message .bot {
+  border-radius: 10px;
+  padding: 10px;
+  width: 75%;
+  position: relative;
+}
+.chat .messages .message .you img, .chat .messages .message .bot img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+.chat .messages .message .you:before, .chat .messages .message .bot:before {
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  top: -15px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 12px;
+}
+.chat .messages .message .you {
+  background: #333;
+  float: right;
+  color : #FFF;
+  width: auto;
+  max-width: 210px;
+
+}
+.chat .messages .message .you:before {
+  content: "You:";
+  background-color: #333;
+  color: #DDDDDD;
+  right: 10px;
+}
+.chat .messages .message .bot {
+  background-color: #333;
+  /*background-color: #4881B6;*/
+  color : #FFF;
+  float: left;
+  width: auto;
+  max-width: 210px;
+}
+.chat .messages .message .bot:before {
+  content: "Bot:";
+  background-color: #333;
+  /*background-color: #4881B6;*/
+  left: 10px;
+}
+.chat .messages .message:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.chat .input {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+}
+.chat .input .text {
+  background-color: #fff;
+  border-radius: 20px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 270px;
+  box-shadow: inset 0 0 5px #aaa;
+  line-height: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}

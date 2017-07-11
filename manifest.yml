@@ -1,0 +1,7 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  name: CarMatcher-beta
+  host: carmatcher-personality-beta
+  disk_quota: 1024M

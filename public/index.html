@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>CarMatcher - Mercedes-Benz</title>
+   <link rel="apple-touch-icon" href="http://www.mbusa.com/mercedes/images/icons/appletouchicon.png">
+   <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="http://www.mbusa.com/favicon.ico">
+
+   <!-- JQ -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <!-- BSS -->
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+   <!-- custom sheet -->
+   <link rel="stylesheet"  href="./css/index.css">
+   <link rel="stylesheet"  href="./css/chat.css">
+   <script src="./js/jquery.easypiechart.min.js"></script>
+   <script src="./js/index.js"></script>
+   <script src="./js/chat.js"></script>
+</head>
+
+<body class="index">
+   <header>
+      <nav id="main">
+         <div class="header">
+            <a href="#" onclick="window.location.reload(true);"><img src="./res/logo.png"></a>
+         </div>
+      </nav>
+   </header>
+
+   <div id="fb-content" class="content">
+      <div id="show-stat" onmouseover="personality_stat_show();" class="showbox" style="display:none"></div>
+      <div id="fb-result" onclick="personality_stat_hide();" style="display:none">
+         <div class="container-fluid">
+            <div class="row">
+               <div id="fb-profile" class="fb-profile col-md-2 col-md-offset-1 text-left col-xs-6 col-sm-3">
+                  <center><img id="fb-profile-pic" class="fb-profile-pic"></center>
+               </div>
+               <div class="fb-profile-content col-md-2 col-xs-6 col-sm-3">
+                  <p id="fb-name"></p>
+                  <p id="fb-age">Age: N/A</p>
+                  <p id="fb-gender" style="text-transform:capitalize;">Gender: N/A</p>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Adventurousness-title">Adventurousness</p>
+                  <div id="chart-Adventurousness" class="chart" data-percent="0">
+                     <span id="chart-Adventurousness-pct" class="percent">0</span>
+                  </div>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Artistic-title">Artistic</p>
+                  <div id="chart-Artistic" class="chart" data-percent="0">
+                     <span id="chart-Artistic-pct" class="percent">0</span>
+                  </div>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Achievement-title">Achievement-seeking</p>
+                  <div id="chart-Achievement" class="chart" data-percent="0">
+                     <span id="chart-Achievement-pct" class="percent">0</span>
+                  </div>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Orderliness-title">Orderliness</p>
+                  <div id="chart-Orderliness" class="chart" data-percent="0">
+                     <span id="chart-Orderliness-pct" class="percent">0</span>
+                  </div>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Neuroticism-title">Emotional</p>
+                  <div id="chart-Neuroticism" class="chart" data-percent="0">
+                     <span id="chart-Neuroticism-pct" class="percent">0</span>
+                  </div>
+               </div>
+               <div class="fb-personality col-md-1 col-xs-6 col-sm-3">
+                  <p id="chart-Challenge-title">Challenge</p>
+                  <div id="chart-Challenge" class="chart" data-percent="0">
+                     <span id="chart-Challenge-pct" class="percent">0</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="fb-recommend" class="fb-recommend">
+         <a id="fb-model" target="_blank" href="#" class="fb-recommend-link">
+            Analyzing...
+         </a>
+      </div>
+      <div class="social-padding">
+         <div id="social-login" class="social-title">
+            <p margin="center" style="margin: 0 0 20px">Which Mercedes model suits me?</p>
+         <div class="social-twbox">
+            <input id ="twitter-id" class="social-twbox-input" type="text" placeholder="your twitter screen name">
+            <button id="tw-login" class="social-twbox-button" onclick = "onTwClicked()"></button>
+         </div>
+         <div style="height : 20px"></div>
+         <div id"fb-login">
+            <button id="fb-login" class="social-fb-login" onclick="onFbClicked()">
+               Analyze with Facebook
+            </button>
+         </div>
+      </div>
+      <img id="fb-loading" class="social-loading" src="./res/loading.gif">
+   </div>
+   <div id='chat-open-icon' class="chat-icon-bg" style="display:none">
+      <a href="#" onclick="chatopen()"><div class='glyphicon glyphicon-comment' aria-hidden="true" style="font-size: 40px; color: #fff;"></div></a>
+   </div>
+   <div id='chat-window' class='chat' style="display:none">
+     <div class='messages'>
+       <div class='message'>
+         <!-- <div class='bot'>
+           How can I help you?
+         </div> -->
+       </div>
+     </div>
+     <div class='input'>
+       <form action='#' id='chat' method='post'>
+         <input class='text' contenteditable placeholder='Type your message here...'>
+       </form>
+     </div>
+   </div>
+
+   <script type="text/javascript">
+      $(function () {
+         $(function () {
+            //create instance
+            $('.chart').easyPieChart({
+               animate: {
+                  duration: 1000,
+                  enabled: true
+               }
+            });
+         });
+      });
+      randomBackground();
+   </script>
+</body>
+</html>
