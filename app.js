@@ -13,6 +13,8 @@ const app = express();
 dotenv.config();
 var appEnv = cfenv.getAppEnv();
 
+var models = require("./public/DB/models.json");
+
 //sevice init
 var client = new Twitter({
    consumer_key: process.env.tw_consumer_key,
@@ -43,6 +45,7 @@ var conversation = watson.conversation({
 });
 
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -58,19 +61,23 @@ app.use(function(req, res, next) {
 var context = {};
 
 app.post('/conversation', function (req, res) {
+   console.log("req conver\n", req.body);
+   console.log("context\n", req.body.context);
    var message = req.body.message;
-   console.log("message", message);
+   if(req.body.init) context = req.body.context;
    conversation.message({
-     workspace_id: process.env.conversation_workspace_id,
-     input: {'text' : message},
-     context: context
+      workspace_id: process.env.conversation_workspace_id,
+      input: {'text' : message},
+      context: context
    },  function(err, response) {
-     if (err)
-       console.log('error:', err);
-     else
-       console.log(JSON.stringify(response, null, 2));
-       context = response.context;
-      res.send(response);
+      if (err) {
+         console.log('error:', err);
+      }
+      else{
+         console.log("res",JSON.stringify(response, null, 2));
+         context = response.context;
+         res.send(response);
+      }
    });
 });
 
@@ -142,6 +149,12 @@ app.post("/analyze", function(req, res){
       }
    });
 });
+
+
+app.get("/models", function(req, res){
+   res.send(models);
+});
+
 
 app.get("/twitter", function(req, res) {
    console.log("query ",req.query);

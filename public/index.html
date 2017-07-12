@@ -20,7 +20,6 @@
    <link rel="stylesheet"  href="./css/chat.css">
    <script src="./js/jquery.easypiechart.min.js"></script>
    <script src="./js/index.js"></script>
-   <script src="./js/chat.js"></script>
 </head>
 
 <body class="index">
@@ -105,16 +104,12 @@
       </div>
       <img id="fb-loading" class="social-loading" src="./res/loading.gif">
    </div>
-   <div id='chat-open-icon' class="chat-icon-bg" style="display:none">
-      <a href="#" onclick="chatopen()"><div class='glyphicon glyphicon-comment' aria-hidden="true" style="font-size: 40px; color: #fff;"></div></a>
+   <div id='chat-open-icon' class="chat-icon-bg" style="display:true">
+      <a href="#" onclick="chatopen();"><div class='glyphicon glyphicon-comment' aria-hidden="true" style="font-size: 40px; color: #fff;"></div></a>
    </div>
    <div id='chat-window' class='chat' style="display:none">
-     <div class='messages'>
-       <div class='message'>
-         <!-- <div class='bot'>
-           How can I help you?
-         </div> -->
-       </div>
+     <div id='chat-msg' class='scrollbar messages'>
+
      </div>
      <div class='input'>
        <form action='#' id='chat' method='post'>
@@ -137,5 +132,6 @@
       });
       randomBackground();
    </script>
+   <script src="./js/chat.js"></script>
 </body>
 </html>
