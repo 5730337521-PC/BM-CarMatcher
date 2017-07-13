@@ -77,6 +77,10 @@
             }
 
          }
+         if(context.dothis == "weather"){
+            //weather api;
+
+         }
          app.bot_post(bot_msg);
       },
       send_message: function() {
