@@ -1,12 +1,13 @@
 //FB
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '1711103188904701', //126366697953106 ACTIVE 1711103188904701 TEST
+    appId      : '126366697953106', //126366697953106 ACTIVE 1711103188904701 TEST
     xfbml      : true,
     version    : 'v2.9'
   });
   FB.AppEvents.logPageView();
 };
+
 
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
@@ -73,7 +74,7 @@ function analyzeProfilePic(callback){
                         if(age_min && !age_max){
                           age = age_min;
                         }else if(!age_min && age_max){
-                          age = parseInt(age_max/2);
+                          age = parseInt(age_max);
                         }else if(age_min && age_max){
                           age = parseInt((age_min+age_max)/2);
                         }else{
@@ -146,7 +147,7 @@ function analyzePosts(){
                     analyzePsycho();
                     setTimeout(function () {
                         user.model = chooseModel();
-                        console.log("model ", user.model);
+                        // console.log("model ", user.model);
                         $("#fb-model").attr('href', user.model.link);
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
@@ -155,7 +156,7 @@ function analyzePosts(){
                     }, 1000);
                 }, 1000);
                 //db update
-                console.log("user :",user);
+               //  console.log("user :",user);
                 insertuser();
 
                 $("#chat-open-icon").fadeIn();
@@ -355,79 +356,4 @@ function personality_stat_show(){
    $("#fb-result").fadeIn();
    $("#show-stat").hide();
    $("#fb-recommend").fadeIn();
-}
-
-var models = {
-    "C": {
-        "name": "C-Class Saloon",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/c-class/w205.flash.html#_int_passengercars:home:model-navi:w205",
-        "pic": "./model/model_c",
-        "color" : "Grey, Silver, Black, White"
-    },
-    "E_coupe": {
-        "name": "E-Class Coupé",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/e-class/_c207.flash.html",
-        "pic": "./model/model_e_coupe",
-        "color" : "Grey, Silver, Black, White, Red"
-    },
-    "SLK": {
-        "name": "SLK Roadster",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/slk-class/_r172.flash.html",
-        "pic": "./model/model_slk",
-        "color" : "Grey, Silver, Black, White"
-    },
-    "A": {
-        "name": "A-Class Saloon",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/a-class/w176.flash.html",
-        "pic": "./model/model_a",
-        "color" : "Silver, Black, White"
-    },
-    "C_coupe": {
-        "name": "C-Class Coupé",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/c-class/_c204.flash.html",
-        "pic": "./model/model_c_coupe",
-        "color" : "Silver, Black, White"
-    },
-    "GL": {
-        "name": "GL-Class",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/gl-class/x166.flash.html",
-        "pic": "./model/model_gl",
-        "color" : "Silver, Black, White"
-    },
-    "SLS_AMG": {
-        "name": "SLS AMG",
-        "link": "http://www.mercedes-amg.com/webspecial/slsblackseries/eng.php",
-        "pic": "./model/model_sls_amg",
-        "color" : "Silver, Black, White"
-    },
-    "GLA": {
-        "name": "GLA Off-Roader",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/gla-class/x156.flash.html",
-        "pic": "./model/model_gla",
-        "color" : "Silver, Black, White"
-    },
-    "CLA": {
-        "name": "CLA Coupé",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/cla-class/c117.flash.html",
-        "pic": "./model/model_cla",
-        "color" : "Silver, Black, White"
-    },
-    "S": {
-        "name": "S-Class Saloon",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/s-class/w222.flash.html",
-        "pic": "./model/model_s",
-        "color" : "Silver, Black, White"
-    },
-    "CLS": {
-        "name": "CLS Coupé",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/cls-class/_c218.flash.html",
-        "pic": "./model/model_cls",
-        "color" : "Silver, Black, White"
-    },
-    "GLE": {
-        "name": "GLE SUV",
-        "link": "http://www.mercedes-benz.com.sg/content/singapore/mpc/mpc_singapore_website/enng/home_mpc/passengercars/home/new_cars/models/gle-class/gle_suv.flash.html",
-        "pic": "./model/model_gle",
-        "color" : "Silver, Black, White"
-    }
 }

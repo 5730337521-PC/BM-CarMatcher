@@ -13,8 +13,6 @@ const app = express();
 dotenv.config();
 var appEnv = cfenv.getAppEnv();
 
-var models = require("./public/DB/models.json");
-
 //sevice init
 var client = new Twitter({
    consumer_key: process.env.tw_consumer_key,
@@ -62,9 +60,8 @@ var context = {};
 
 app.post('/conversation', function (req, res) {
    console.log("req conver\n", req.body);
-   console.log("context\n", req.body.context);
    var message = req.body.message;
-   if(req.body.init) context = req.body.context;
+   context = req.body.context;
    conversation.message({
       workspace_id: process.env.conversation_workspace_id,
       input: {'text' : message},
@@ -150,10 +147,6 @@ app.post("/analyze", function(req, res){
    });
 });
 
-
-app.get("/models", function(req, res){
-   res.send(models);
-});
 
 
 app.get("/twitter", function(req, res) {

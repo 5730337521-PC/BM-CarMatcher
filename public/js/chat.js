@@ -1,7 +1,10 @@
 (function() {
    var app;
    var start = false;
-   var currcar = user.model;
+   var mycar = {};
+   var currcar = {};
+   var bot_msg = "";
+   var context = {};
    $(document).ready(function(){
       $("#chat-open-icon").click(function(){
          if(!start){
@@ -17,7 +20,9 @@
    app = {
       init: function() {
          conver_init(function(res){
-            console.log("bot_init_res",res);
+            mycar = user.model;
+            currcar = user.model;
+            context = res.context;
             app.bot_post(res.output.text);
 
          });
@@ -32,22 +37,47 @@
          return $(document).on("submit", "#chat", function(e) {
             var send_m = app.send_message();
             console.log("send_m",send_m)
-            post_to_sev(send_m,"",function(res){
-               var context = res.context;
-               var bot_msg = res.output.text[0];
+            post_to_sev(send_m,context,function(res){
+               context = res.context;
+               bot_msg = res.output.text[0];
                console.log("bot_msg \n",bot_msg);
                console.log("context \n",context);
-               app.bot_post(bot_msg);
-               app.docontext(context);
+               console.log("mycar ",mycar);
+               console.log("currcar ",currcar);
+               try{
+                  app.docontext(context);
+               }catch(e){
+                  console.log(e);
+                  app.bot_post(bot_msg);
+               }
             });
             return e.preventDefault();
          });
       },
 
       docontext: function(context){
-         if(context.car != currcar){
-            changecar(context.car);
+         console.log("contxt ",context);
+         if(context.dothis == "showcar"){
+            if(context.car.name != currcar.name){
+               if(context.car == "mycar"){
+                  changecar(mycar);
+                  currcar = mycar;
+                  context.car = mycar;
+               }else{
+                  changecar(models[name_key[context.car]]);
+                  currcar = models[name_key[context.car]];
+                  context.car = models[name_key[context.car]];
+               }
+            }
          }
+         if(context.dothis == "listcar"){
+            bot_msg = "I know about <br >"
+            for (i in models){
+              bot_msg += ("• " + models[i].name + "<br >");
+            }
+
+         }
+         app.bot_post(bot_msg);
       },
       send_message: function() {
          var msg;
