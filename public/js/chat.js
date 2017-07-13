@@ -40,10 +40,7 @@
             post_to_sev(send_m,context,function(res){
                context = res.context;
                bot_msg = res.output.text[0];
-               console.log("bot_msg \n",bot_msg);
-               console.log("context \n",context);
-               console.log("mycar ",mycar);
-               console.log("currcar ",currcar);
+               console.log("bot_res \n",res);
                try{
                   app.docontext(context);
                }catch(e){
@@ -56,17 +53,20 @@
       },
 
       docontext: function(context){
-         console.log("contxt ",context);
          if(context.dothis == "showcar"){
             if(context.car.name != currcar.name){
                if(context.car == "mycar"){
                   changecar(mycar);
                   currcar = mycar;
                   context.car = mycar;
+                  app.bot_post(bot_msg);
+                  return 0;
                }else{
                   changecar(models[name_key[context.car]]);
                   currcar = models[name_key[context.car]];
                   context.car = models[name_key[context.car]];
+                  app.bot_post(bot_msg);
+                  return 0;
                }
             }
          }
@@ -75,10 +75,28 @@
             for (i in models){
               bot_msg += ("• " + models[i].name + "<br >");
             }
-
+            return 0;
          }
-         if(context.dothis == "weather"){
+         if(context.dothis == "helplistcar"){
+            app.bot_post(bot_msg);
+            bot_msg = "I know about <br >"
+            for (i in models){
+              bot_msg += ("• " + models[i].name + "<br >");
+            }
+            // pausecomp(1000);
+            app.bot_post(bot_msg);
+            return 0;
             //weather api;
+         }
+         if(context.dothis == "showothercarabout"){
+            //changecar
+            changecar(models[name_key[context.car]]);
+            currcar = models[name_key[context.car]];
+            context.car = models[name_key[context.car]];
+            //bot
+            bot_msg = "<b>" + context.car.name + "</b><br r>" + context.car.about;
+            app.bot_post(bot_msg);
+            return 0;
 
          }
          app.bot_post(bot_msg);
@@ -193,3 +211,11 @@ $(document).mouseup(function(e){
       chatclose();
    }
 });
+
+function pausecomp(millis)
+{
+    var date = new Date();
+    var curDate = null;
+    do { curDate = new Date(); }
+    while(curDate-date < millis);
+}

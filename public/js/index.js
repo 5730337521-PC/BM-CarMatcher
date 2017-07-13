@@ -158,7 +158,6 @@ function analyzePosts(){
                 //db update
                //  console.log("user :",user);
                 insertuser();
-
                 $("#chat-open-icon").fadeIn();
             }, 500);
         }
@@ -230,6 +229,7 @@ function onFbClicked() {
             console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'user_posts'});
+
 };
 
 function randomBackground() {
