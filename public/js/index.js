@@ -1,7 +1,7 @@
 //FB
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '1711103188904701', //126366697953106 ACTIVE 1711103188904701 TEST
+    appId      : '126366697953106', //126366697953106 ACTIVE 1711103188904701 TEST
     xfbml      : true,
     version    : 'v2.9'
   });
@@ -19,8 +19,9 @@ window.fbAsyncInit = function() {
 var user = {};
 
 function onTwClicked(){
-    var name = $("#twitter-id").val();
     console.log("onTwClicked");
+    myWindow = window.open("about:blank",'name',"resizable,scrollbars,width=400px,height=500px");
+    var name = $("#twitter-id").val();
     if(name != ''){
       $("#social-login").hide();
       $("#fb-loading").show();
@@ -155,7 +156,7 @@ function analyzePosts(){
                     setTimeout(function () {
                         user.model = chooseModel();
                         // console.log("model ", user.model);
-                        RedirectURL(user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5]);
+                        RedirectURL(myWindow,user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5]);
                         $("#fb-model").attr('href', user.model.link);
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
@@ -172,13 +173,24 @@ function analyzePosts(){
     });
 }
 
-function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Artistic,Achievementseeking,Orderliness,Emotional,Challenge){
+function RedirectURL(win,Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Artistic,Achievementseeking,Orderliness,Emotional,Challenge){
    var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge;
-   windowObjectReference = window.open(url,"Pls fill this form","resizable,scrollbars,status,width=400px,height=500px")
+   try{
+      win.open(url,'name',"resizable,scrollbars,width=400px,height=470px");
+   }catch(e){
+      console.log("pls disable popup block")
+      $("#popupblk").fadeIn();
+   }
 }
 
+var myWindow;
+
+function openwindow(){
+   myWindow = window.open("about:blank",'name',"resizable,scrollbars,width=400px,height=500px");
+}
 
 function onFbClicked() {
+    console.log("onFBClicked");
     FB.login(function (response) {
         if (response.authResponse) {
             $("#social-login").hide();
@@ -245,8 +257,8 @@ function onFbClicked() {
             console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'user_posts'});
-
-};
+    openwindow();
+}
 
 function randomBackground() {
     var arr = Object.keys(models);

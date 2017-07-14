@@ -287,3 +287,20 @@ input {
 
    /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
 }
+
+.popupblk {
+  width: 200px;
+  height: 20px;
+  max-height: calc(100vh - 80px);
+  color : #FFF;
+  background-color: rgba(255,0,0,1);;
+  position: absolute;
+  /*border: 5px solid #000;*/
+  border-top-right-radius: 20px;
+  overflow: hidden;
+  /*box-shadow: 0 0 20px #000;*/
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  box-sizing: border-box;
+}
