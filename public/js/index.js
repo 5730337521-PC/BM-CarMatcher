@@ -1,13 +1,12 @@
 //FB
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '126366697953106', //126366697953106 ACTIVE 1711103188904701 TEST
+    appId      : '1711103188904701', //126366697953106 ACTIVE 1711103188904701 TEST
     xfbml      : true,
     version    : 'v2.9'
   });
   FB.AppEvents.logPageView();
 };
-
 
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,8 +38,6 @@ function onTwClicked(){
       });
     }
 }
-
-
 function analyzeProfilePic(callback){
   console.log("analyzeProfilePic :", user.profpic);
   //https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces?api_key={api-key}&version=2016-05-20"
@@ -105,8 +102,9 @@ function insertuser(){
    });
 }
 
+
 function analyzePosts(){
-    console.log("analyzing post user=", user);
+    console.log("analyzing post user=", user),
     $.ajax({
         type: "POST",
         url: '/analyze',
@@ -138,16 +136,26 @@ function analyzePosts(){
                 }
                 $("#fb-result").fadeIn();
                 setTimeout(function () {
-                    updatePersonalityChart("Adventurousness", 100 * user.personality.tree.children[0].children[0].children[0].children[0].percentage);
-                    updatePersonalityChart("Artistic", 100 * user.personality.tree.children[0].children[0].children[0].children[1].percentage);
-                    updatePersonalityChart("Achievement", 100 * user.personality.tree.children[0].children[0].children[1].children[0].percentage, "Achievement-Striving");
-                    updatePersonalityChart("Orderliness", 100 * user.personality.tree.children[0].children[0].children[1].children[3].percentage);
-                    updatePersonalityChart("Neuroticism", 100 * user.personality.tree.children[0].children[0].children[4].percentage, "Emotional");
-                    updatePersonalityChart("Challenge", 100 * user.personality.tree.children[1].children[0].children[0].percentage, "Challenge-Seeking");
+                   user.result = [
+                      100 * user.personality.tree.children[0].children[0].children[0].children[0].percentage
+                     ,100 * user.personality.tree.children[0].children[0].children[0].children[1].percentage
+                     ,100 * user.personality.tree.children[0].children[0].children[1].children[0].percentage
+                     ,100 * user.personality.tree.children[0].children[0].children[1].children[3].percentage
+                     ,100 * user.personality.tree.children[0].children[0].children[4].percentage
+                     ,100 * user.personality.tree.children[1].children[0].children[0].percentage
+                   ];
+                    console.log("user result",user.result)
+                    updatePersonalityChart("Adventurousness",user.result[0]);
+                    updatePersonalityChart("Artistic",user.result[1]);
+                    updatePersonalityChart("Achievement",user.result[2], "Achievement-Striving");
+                    updatePersonalityChart("Orderliness",user.result[3]);
+                    updatePersonalityChart("Neuroticism",user.result[4], "Emotional");
+                    updatePersonalityChart("Challenge",user.result[5], "Challenge-Seeking");
                     analyzePsycho();
                     setTimeout(function () {
                         user.model = chooseModel();
                         // console.log("model ", user.model);
+                        RedirectURL(user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5]);
                         $("#fb-model").attr('href', user.model.link);
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
@@ -163,19 +171,27 @@ function analyzePosts(){
         }
     });
 }
+
+function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Artistic,Achievementseeking,Orderliness,Emotional,Challenge){
+   var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge;
+   windowObjectReference = window.open(url,"Pls fill this form","resizable,scrollbars,status,width=400px,height=500px")
+}
+
+
 function onFbClicked() {
     FB.login(function (response) {
         if (response.authResponse) {
             $("#social-login").hide();
             $("#fb-loading").show();
             console.log('Welcome!  Fetching your information.... ', response);
-            FB.api('/me?fields=name,birthday,gender,about,email,first_name', function (response) {
+            FB.api('/me?fields=name,birthday,gender,about,email,first_name,last_name', function (response) {
                 console.log("me ", response);
                 console.log("gender ", response.gender);
                 console.log("birthday ", response.birthday);
                 user.email = response.email;
                 user.birthday = response.birthday;
                 user.name = response.name;
+                user.lname = response.last_name;
                 user.fname = response.first_name;
                 user.id = response.id
                 user.posts = "";
