@@ -19,7 +19,7 @@ body {
    background: rgba(34,34,34,0.6);
    /*background-color: #7890E890*/
    margin: auto;
-   position: absolute;
+   position: fixed;
    right: 1vw;
    bottom: 1vh;
    box-shadow: 0 0 20px #000;
@@ -156,7 +156,7 @@ body {
      height: 50vh;
      max-height: calc(100vh);
      background-color: rgba(160,160,160,0.7);;
-     position: absolute;
+     position: fixed;
      /*border: 5px solid #000;*/
      border-top-left-radius: 20px;
      border-top-right-radius: 20px;
@@ -174,10 +174,23 @@ body {
      position: absolute;
      top: 10px;
      left: 10px;
-     width: calc(100vw - 40px);
+     width: calc(100vw - 20px);
      box-shadow: inset 0 0 5px #aaa;
      line-height: 40px;
      padding: 0 20px;
      box-sizing: border-box;
    }
+   .chat-icon-bg{
+      width : 60px;
+      height: 60px;
+      border-radius: 5px;
+      padding-top: 10px;
+      padding-left: 10px;
+      background: rgba(34,34,34,0.6);
+      /*background-color: #7890E890*/
+      margin: auto;
+      position: fixed;
+      right: 0px;
+      bottom: 0px;
+      box-shadow: 0 0 20px #000;
 }

@@ -20,7 +20,6 @@ var user = {};
 
 function onTwClicked(){
     console.log("onTwClicked");
-    myWindow = window.open("about:blank",'name',"resizable,scrollbars,width=400px,height=500px");
     var name = $("#twitter-id").val();
     if(name != ''){
       $("#social-login").hide();
