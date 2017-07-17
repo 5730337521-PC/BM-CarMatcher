@@ -153,7 +153,7 @@ body {
 @media only screen and (max-width: 768px) {
    .chat {
      width: 100vw;
-     height: 50vh;
+     height: 70vh;
      max-height: calc(100vh);
      background-color: rgba(160,160,160,0.7);;
      position: fixed;
@@ -193,4 +193,14 @@ body {
       right: 0px;
       bottom: 0px;
       box-shadow: 0 0 20px #000;
+   }
+   .fb-profile-pic{
+      vertical-align: middle;
+      height: auto;
+      max-width: calc(50vw - 10px);
+      max-height: 130px;
+   }
+   .fb-profile{
+      padding: 0 0 0 0;
+   }
 }

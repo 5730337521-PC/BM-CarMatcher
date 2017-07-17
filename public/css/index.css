@@ -80,8 +80,7 @@
    border: 0px solid;
    padding: 20px;
    background-color: rgb(34, 34, 34);
-   min-width: 420px;
-   max-width: 500;
+   max-width: 100vw;
    /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
    margin: 0 auto;
 }
@@ -94,8 +93,8 @@
    background-color: #55acee;
    background-image: url(../res/tw.png);
    background-size: 30px;
-   background-repeat: no-repeat
-   ;padding-left: 40px;
+   background-repeat: no-repeat;
+   padding-left: 40px;
    display: block;
    clear: left;
    background-position: 14px 14.5px;
@@ -107,8 +106,7 @@
 }
 
 .social-twbox-input{
-   width: 80%;
-   min-width: 230px;
+   width: 250px;
    display: inline-block;
    border: none;
    padding: 7px 0px;
@@ -132,7 +130,7 @@
    border-radius: 25px;
    position: relative;
    vertical-align: middle;
-   right :-1.5%;
+   right :-4.5px;
 }
 
 .social-fb-login{
@@ -151,7 +149,6 @@
    background-position: 10px 7.5px;
    font-size: 18px;
    margin: 0 auto;
-   min-width: 350px;
    width: 350px;
    height: 50px;
 }
@@ -304,4 +301,32 @@ input {
   bottom: 0;
   margin: auto;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 420px) {
+   .social-title{
+      width: 100vw;
+      font-size: 5.2vw;
+   }
+   .social-twbox{
+      width: 90vw;
+   }
+   .social-twbox-input{
+      width: calc(75vw - 50px);
+      font-size: 4vw;
+   }
+   .social-twbox-button{
+      right : -0.25vw;
+   }
+   .social-fb-login{
+      width: 90vw;
+      font-size: 4vw;
+   }
+   .header img{
+      max-height: 80px;
+      height: auto;
+      width: 100vw;
+      max-height: 80px;
+      max-width: 305px;
+   }
 }
