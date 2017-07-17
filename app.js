@@ -71,7 +71,10 @@ app.post('/conversation', function (req, res) {
          console.log('error:', err);
       }
       else{
-         console.log("res",JSON.stringify(response, null, 2));
+         console.log("bot_res initent\n",response.intents);
+         console.log("bot_res entity\n",response.entities);
+         console.log("bot_res output\n",response.output);
+         console.log("bot_res context\n",response.context);
          context = response.context;
          res.send(response);
       }
@@ -82,7 +85,7 @@ app.post('/conversation', function (req, res) {
 app.post('/insert', function (req, res) {
    var db = cloudant.use('carmatcher_user');
    var content = req.body;
-   console.log("inserted content : \n", content);
+   // console.log("inserted content : \n", content);
    db.insert( content, function(err, body) {
       if (!err) console.log("insert pass");
       else console.log ("insert fail\n",err);

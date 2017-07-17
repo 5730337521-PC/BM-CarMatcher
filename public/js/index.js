@@ -156,7 +156,7 @@ function analyzePosts(){
                     setTimeout(function () {
                         user.model = chooseModel();
                         // console.log("model ", user.model);
-                        RedirectURL(myWindow,user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5]);
+                        RedirectURL(user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5],user.model.name);
                         $("#fb-model").attr('href', user.model.link);
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
@@ -173,10 +173,23 @@ function analyzePosts(){
     });
 }
 
-function RedirectURL(win,Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Artistic,Achievementseeking,Orderliness,Emotional,Challenge){
-   var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge;
+function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Artistic,Achievementseeking,Orderliness,Emotional,Challenge,car){
+   // openwindow();
+   if(!Firstname){
+      Firstname="";
+   }
+   if(!Lastname){
+      Lastname="";
+   }
+   if(!Email){
+      Email="";
+   }
+   if(!Birthday){
+      Birthday="";
+   }
+   var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge+"&Car="+car;
    try{
-      win.open(url,'name',"resizable,scrollbars,width=400px,height=470px");
+      myWindow = window.open(url,'name',"resizable,scrollbars,width=400px,height=470px");
    }catch(e){
       console.log("pls disable popup block")
       $("#popupblk").fadeIn();
@@ -184,10 +197,6 @@ function RedirectURL(win,Firstname,Lastname,Email,Gender,Birthday,Adventurousnes
 }
 
 var myWindow;
-
-function openwindow(){
-   myWindow = window.open("about:blank",'name',"resizable,scrollbars,width=400px,height=500px");
-}
 
 function onFbClicked() {
     console.log("onFBClicked");
@@ -257,7 +266,6 @@ function onFbClicked() {
             console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'user_posts'});
-    openwindow();
 }
 
 function randomBackground() {
@@ -344,7 +352,7 @@ function updatePersonalityChart(key, pct, title) {
     user.psycho[key] = pct;
     $("#chart-" + key + "-title").html(title);
     $("#chart-" + key + "-pct").html(pct);
-    $("#chart-" + key).data('easyPieChart').update(pct)
+    $("#chart-" + key).data('easyPieChart').update(pct);
 }
 
 

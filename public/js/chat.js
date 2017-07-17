@@ -5,6 +5,7 @@
    var currcar = {};
    var bot_msg = "";
    var context = {};
+   var jokeno;
    $(document).ready(function(){
       $("#chat-open-icon").click(function(){
          if(!start){
@@ -23,6 +24,7 @@
             mycar = user.model;
             currcar = user.model;
             context = res.context;
+            console.log("init_res",res);
             app.bot_post(res.output.text);
 
          });
@@ -38,9 +40,9 @@
             var send_m = app.send_message();
             console.log("send_m",send_m)
             post_to_sev(send_m,context,function(res){
-               context = res.context;
-               bot_msg = res.output.text[0];
                console.log("bot_res \n",res);
+               context = res.context;
+               bot_msg = res.output.text[res.output.text.length-1];
                try{
                   app.docontext(context);
                }catch(e){
@@ -50,6 +52,10 @@
             });
             return e.preventDefault();
          });
+      },
+
+      findnotempty: function(arr){
+
       },
 
       docontext: function(context){
@@ -75,6 +81,7 @@
             for (i in models){
               bot_msg += ("• " + models[i].name + "<br >");
             }
+            app.bot_post(bot_msg);
             return 0;
          }
          if(context.dothis == "helplistcar"){
@@ -98,6 +105,20 @@
             app.bot_post(bot_msg);
             return 0;
 
+         }
+         if(context.dothis == "telljoke"){
+            //changecar
+            console.log("jokel",jokeno);
+            jokeno = Math.floor(Math.random() * joke.length);
+            bot_msg = joke[jokeno].qs;
+            app.bot_post(bot_msg);
+            return 0;
+         }
+         if(context.dothis == "ansjoke"){
+            //changecar
+            bot_msg = joke[jokeno].ans;
+            app.bot_post(bot_msg);
+            return 0;
          }
          app.bot_post(bot_msg);
       },

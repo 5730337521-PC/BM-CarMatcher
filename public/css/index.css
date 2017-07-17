@@ -103,6 +103,7 @@
    margin: 0 auto;
    width: 350px;
    height: 50px;
+   line-height: 50px;
 }
 
 .social-twbox-input{
@@ -130,7 +131,7 @@
    /*box-shadow: 0 3px 3px rgba(0,0,0,0.06), 0 3px 3px rgba(0,0,0,0.23);*/
    border-radius: 25px;
    position: relative;
-   top: 8px;
+   vertical-align: middle;
    right :-1.5%;
 }
 
