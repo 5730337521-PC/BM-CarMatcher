@@ -213,7 +213,7 @@ function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Ar
    }
    var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge+"&Car="+car;
    try{
-      myWindow = window.open(url,'name',"resizable,scrollbars,width=400px,height=470px");
+      myWindow = window.open(url,'name',"resizable,scrollbars,width=400px,height=520px");
    }catch(e){
       console.log("pls disable popup block")
       $("#popupblk").fadeIn();

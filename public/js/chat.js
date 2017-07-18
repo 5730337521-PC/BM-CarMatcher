@@ -108,15 +108,22 @@
          }
          if(context.dothis == "telljoke"){
             //changecar
-            console.log("jokel",jokeno);
             jokeno = Math.floor(Math.random() * joke.length);
+            console.log("jokeno",jokeno);
             bot_msg = joke[jokeno].qs;
             app.bot_post(bot_msg);
             return 0;
          }
          if(context.dothis == "ansjoke"){
             //changecar
-            bot_msg = joke[jokeno].ans;
+            var jokeans = joke[jokeno].ans;
+            var userans = context.jokeres;
+            bot_msg = jokeans;
+            console.log(jokeans);
+            console.log(userans);
+            if(jokeans.match(userans)){
+               bot_msg = "Wow you are good!";
+            }
             app.bot_post(bot_msg);
             return 0;
          }
