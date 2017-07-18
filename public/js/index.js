@@ -29,6 +29,7 @@ function onTwClicked(){
               return a+(a.length > 0 ? ". ":"")+ b.text;
           }, "");
           console.log("tw ",tw);
+          user.social = "TW";
           user.posts = tw;
           user.profpic = response.user.profile_image_url.replace("normal","400x400");
           $("#fb-profile-pic").attr("src", user.profpic);
@@ -91,10 +92,29 @@ function analyzeProfilePic(callback){
 }
 
 function insertuser(){
+   var todb = { //ADV ART ACH ODR NEU CHA
+      "user" : {
+         "email" : user.email,
+         "fname" : user.fname,
+         "lname" : user.lname,
+         "gender" : user.gender,
+         "birthday" : user.birthday,
+         "social" : user.social
+      },
+      "result" : {
+         "adv" : user.result[0],
+         "ART" : user.result[1],
+         "ACH" : user.result[2],
+         "ODR" : user.result[3],
+         "NEU" : user.result[4],
+         "CHA" : user.result[5],
+         "model": user.model.name
+      }
+   }
    $.ajax({
       type: "POST",
       url: '/insert',
-      data: {userdata : user},
+      data: {userdata : todb},
       success: function (response) {
          console.log("insertuser ", response);
       },
@@ -156,6 +176,7 @@ function analyzePosts(){
                         user.model = chooseModel();
                         // console.log("model ", user.model);
                         RedirectURL(user.fname,user.lname,user.email,user.gender,user.birthday,user.result[0],user.result[1],user.result[2],user.result[3],user.result[4],user.result[5],user.model.name);
+                        insertuser();
                         $("#fb-model").attr('href', user.model.link);
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
@@ -165,7 +186,7 @@ function analyzePosts(){
                 }, 1000);
                 //db update
                //  console.log("user :",user);
-                insertuser();
+
                 $("#chat-open-icon").fadeIn();
             }, 500);
         }
@@ -185,6 +206,9 @@ function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Ar
    }
    if(!Birthday){
       Birthday="";
+   }
+   if(!Gender){
+      Gender="";
    }
    var url = "http://www.pages00.net/orgforwirayutjantrapornsin/carmatcher?Firstname="+Firstname+"&Lastname="+Lastname+"&Email="+Email+"&Gender="+Gender+"&Birthdate="+Birthday+"&Adventurousness="+Adventurousness+"&Artistic="+Artistic+"&Achievementseeking="+Achievementseeking+"&Orderliness="+Orderliness+"&Emotional="+Emotional+"&Challenge="+Challenge+"&Car="+car;
    try{
@@ -208,6 +232,7 @@ function onFbClicked() {
                 console.log("me ", response);
                 console.log("gender ", response.gender);
                 console.log("birthday ", response.birthday);
+                user.social = "FB";
                 user.email = response.email;
                 user.birthday = response.birthday;
                 user.name = response.name;
@@ -380,15 +405,28 @@ function processFbPosts(curr, response, callback) {
     else callback(curr);
 }
 
-function personality_stat_hide(){
-   $("#fb-recommend").hide();
-   $("#fb-result").hide();
-   $("#show-stat").fadeIn();
+var working = false;
 
+function personality_stat_hide(){
+   if(!working){
+      working = true;
+      $("#fb-recommend").hide();
+      $("#fb-result").hide();
+      $("#show-stat").fadeIn();
+      setTimeout(function(){
+         working = false;
+      }, 500);
+   }
 }
 
 function personality_stat_show(){
-   $("#fb-result").fadeIn();
-   $("#show-stat").hide();
-   $("#fb-recommend").fadeIn();
+   if(!working){
+      working = true;
+      $("#fb-result").fadeIn();
+      $("#show-stat").hide();
+      $("#fb-recommend").fadeIn();
+      setTimeout(function(){
+         working = false;
+      }, 500);
+   }
 }

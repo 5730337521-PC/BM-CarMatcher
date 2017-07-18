@@ -212,19 +212,33 @@ function changecar(car){
    $("#fb-content").css('background-image', 'url(' + car.pic + '.jpg)');
 }
 
+var chatwinopen;
 
 function chatclose(){
    $("#chat-open-icon").fadeIn();
    $("#chat-window").fadeOut();
+
 }
 
 function chatopen(){
    $("#chat-window").show();
    $("#chat-open-icon").hide();
+   // console.log(!chatwinopen);
+}
+
+function iconclick(){
+   console.log($("#chat-window").is(":visible"));
+   if(!($("#chat-window").is(":visible"))){
+      setTimeout(function(){
+         window.location.reload(true);
+      }, 500);
+
+   }
 }
 
 $(document).mouseup(function(e){
    var container = $("#chat-window");
+   // console.log(!chatwinopen);
    // if the target of the click isn't the container nor a descendant of the container
    if (!container.is(e.target) && container.has(e.target).length === 0 && ($('#social-login:visible').length == 0)){
       // console.log('container', container);

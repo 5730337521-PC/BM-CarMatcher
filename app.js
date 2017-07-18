@@ -85,7 +85,7 @@ app.post('/conversation', function (req, res) {
 app.post('/insert', function (req, res) {
    var db = cloudant.use('carmatcher_user');
    var content = req.body;
-   // console.log("inserted content : \n", content);
+   console.log("inserted content : \n", content);
    db.insert( content, function(err, body) {
       if (!err) console.log("insert pass");
       else console.log ("insert fail\n",err);
