@@ -99,7 +99,8 @@ function insertuser(){
          "lname" : user.lname,
          "gender" : user.gender,
          "birthday" : user.birthday,
-         "social" : user.social
+         "social" : user.social,
+         "timestamp" : user.analyzewhen
       },
       "result" : {
          "adv" : user.result[0],
@@ -217,6 +218,11 @@ function RedirectURL(Firstname,Lastname,Email,Gender,Birthday,Adventurousness,Ar
       console.log("pls disable popup block")
       $("#popupblk").fadeIn();
    }
+   if(!myWindow || myWindow.closed || typeof myWindow.closed=='undefined')
+      {
+         console.log("pls disable popup block")
+         $("#popupblk").fadeIn();
+      }
 }
 
 var myWindow;
@@ -289,7 +295,7 @@ function onFbClicked() {
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
-    }, {scope: 'user_posts'});
+    }, {scope: 'user_birthday, user_location, user_likes, user_about_me, user_posts, email, public_profile'});
 }
 
 function randomBackground() {
