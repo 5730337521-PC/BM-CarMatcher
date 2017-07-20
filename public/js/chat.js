@@ -54,10 +54,6 @@
          });
       },
 
-      findnotempty: function(arr){
-
-      },
-
       docontext: function(context){
          if(context.dothis == "showcar"){
             if(context.car.name != currcar.name){

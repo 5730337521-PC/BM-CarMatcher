@@ -1,7 +1,20 @@
 //FB
+$(function () {
+   $(function () {
+      //create instance
+      $('.chart').easyPieChart({
+         animate: {
+            duration: 1000,
+            enabled: true
+         }
+      });
+   });
+});
+randomBackground();
+
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '126366697953106', //126366697953106 ACTIVE 1711103188904701 TEST
+    appId      : '1711103188904701', //126366697953106 ACTIVE 1711103188904701 TEST
     xfbml      : true,
     version    : 'v2.9'
   });
@@ -41,7 +54,6 @@ function onTwClicked(){
 }
 function analyzeProfilePic(callback){
   console.log("analyzeProfilePic :", user.profpic);
-  //https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces?api_key={api-key}&version=2016-05-20"
     $.get("https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces", ///v3/detect_faces
             {
                 api_key: 'f97b3375efa43650b5e0885e02535c1427f9427c',
@@ -52,38 +64,43 @@ function analyzeProfilePic(callback){
                 console.log("res.img ",response.images);
                 if (response.images && response.images[0].faces.length > 0) {
                     var face = response.images[0].faces[0];
+                    var age,age_max,age_min;
                     console.log("face ",face);
                     console.log("!user.age ",!user.age);
+                    //calc age
+                    console.log("age ", face.age);
+                    try{
+                       age_min = face.age.min;
+                    }catch(e){
+                       age_min = false;
+                    }
+                    try{
+                       age_max = face.age.max;
+                    }catch(e){
+                       age_max = false;
+                    }
+                    console.log("min",age_min);
+                    console.log("max",age_max);
+                    if(age_min && !age_max){
+                       age = age_min;
+                    }else if(!age_min && age_max){
+                       age = parseInt(age_max);
+                    }else if(age_min && age_max){
+                       age = parseInt((age_min+age_max)/2);
+                    }else{
+                       age = "UNDEFINE";
+                    }
                     if (!user.age && face.age) {
-                        console.log("age ", face.age);
-                        var age,age_max,age_min;
-                        try{
-                          age_min = face.age.min;
-                        }catch(e){
-                            age_min = false;
-                        }
-                        try{
-                          age_max = face.age.max;
-                        }catch(e){
-                            age_max = false;
-                        }
-                        console.log("min",age_min);
-                        console.log("max",age_max);
-                        if(age_min && !age_max){
-                          age = age_min;
-                        }else if(!age_min && age_max){
-                          age = parseInt(age_max);
-                        }else if(age_min && age_max){
-                          age = parseInt((age_min+age_max)/2);
-                        }else{
-                          age = "UNDEFINE";
-                        }
                         user.age = age;
                     }
                     if (!user.gender && face.gender) {
                         user.gender = face.gender.gender.toLowerCase();
                     }
                     user.visual = face;
+                    user.watson_age = age;
+                    user.watson_gender = face.gender.gender.toLowerCase();
+                    console.log("wage",user.watson_age);
+                    console.log("wg",user.watson_gender);
 
                 }
                 callback(response)
@@ -143,18 +160,26 @@ function analyzePosts(){
                 $("#fb-name").html(user.name);
                 console.log("user.age ", user.age);
                 console.log("user.gender ", user.gender);
-                if (user.age) {
-                    $("#fb-age").html("Age: " + user.age + (user.age_actual ? "" : " (Estimate)"));
+                console.log("wage",user.watson_age);
+              console.log("wg",user.watson_gender);
+                if(!VRon){
+                   if (user.age) {
+                       $("#fb-age").html("Age: " + user.age + (user.age_actual ? "" : " (Estimate)"));
+                   }
+                   else {
+                       $("#fb-age").html("Age: N/A");
+                   }
+                   if (user.gender) {
+                       $("#fb-gender").html("Gender: " + user.gender + (user.gender_actual ? "" : " (Analyzed)"));
+                   }
+                   else {
+                       $("#fb-gender").html("Gender: N/A");
+                   }
+                }else{
+                   $("#fb-age").html("Age: " + user.watson_age +" (Estimate)");
+                    $("#fb-gender").html("Gender: "  + user.watson_gender + " (Analyzed)");
                 }
-                else {
-                    $("#fb-age").html("Age: N/A");
-                }
-                if (user.gender) {
-                    $("#fb-gender").html("Gender: " + user.gender + (user.gender_actual ? "" : " (Analyzed)"));
-                }
-                else {
-                    $("#fb-gender").html("Gender: N/A");
-                }
+
                 $("#fb-result").fadeIn();
                 setTimeout(function () {
                    user.result = [
@@ -182,13 +207,12 @@ function analyzePosts(){
                         $("#fb-model").html("Mercedes-Benz " + user.model.name);
                         $("#fb-content").css('background-image', 'url(' + user.model.pic + '.jpg)');
                         $("#fb-recommend").fadeIn();
+                        $("#chat-open-icon").fadeIn();
 
                     }, 1000);
                 }, 1000);
                 //db update
                //  console.log("user :",user);
-
-                $("#chat-open-icon").fadeIn();
             }, 500);
         }
     });
@@ -264,9 +288,9 @@ function onFbClicked() {
                    }
                 }
 
-                FB.api('/me/picture?type=large', function (response) {
+                FB.api('me?fields=picture.width(1000)', function (response) {
                     console.log("pic ", response);
-                    user.profpic = response.data.url;
+                    user.profpic = response.picture.data.url;
                     analyzeProfilePic(function (response) {
                        FB.api('me?fields=posts,likes', function (response) {
                            console.log("posts,like ", response);
@@ -287,7 +311,7 @@ function onFbClicked() {
                            catch(e){
                               console.log("no likes");
                            }
-                           analyzePosts();
+                            analyzePosts();
                        });
                     })
                 });
@@ -435,4 +459,18 @@ function personality_stat_show(){
          working = false;
       }, 500);
    }
+}
+
+var VRon=false;
+
+function checkboxonlick(){
+   if(!VRon){
+         $('#VRcheckbox').prop('checked', true);
+         VRon = true;
+   }
+   else{
+         $('#VRcheckbox').prop('checked', false);
+         VRon = false;
+   }
+   console.log("rn vron",VRon);
 }

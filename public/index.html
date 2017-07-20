@@ -34,9 +34,6 @@
    <!-- custom sheet -->
    <link rel="stylesheet"  href="./css/index.css">
    <link rel="stylesheet"  href="./css/chat.css">
-   <script src="./js/models.js"></script>
-   <script src="./js/jquery.easypiechart.min.js"></script>
-   <script src="./js/index.js"></script>
 </head>
 
 <body class="index">
@@ -112,12 +109,23 @@
             <input id ="twitter-id" class="social-twbox-input" type="text" placeholder="your twitter screen name">
             <button id="tw-login" class="social-twbox-button" onclick = "onTwClicked()"></button>
          </div>
-         <div style="height : 20px"></div>
+         <div style="height : 10px"></div>
          <div id"fb-login">
             <button id="fb-login" class="social-fb-login" onclick="onFbClicked()">
                Analyze with Facebook
             </button>
          </div>
+         <div style="height : 10px"></div>
+         <a href="#" onclick="checkboxonlick();">
+            <div class="VRchkbox-field">
+               <span class="VRchkbox-text">Using Visual-recognition</span>
+               <div class="VRcheckbox">
+                  <input type="checkbox" value="None" id="VRcheckbox" name="check" />
+                  <label for="VRcheckbox"></label>
+               </div>
+            </div>
+         </a>
+
       </div>
       <img id="fb-loading" class="social-loading" src="./res/loading.gif">
    </div>
@@ -138,20 +146,9 @@
       <p>Please disble pop-up block</p>
    </div>
 
-   <script type="text/javascript">
-      $(function () {
-         $(function () {
-            //create instance
-            $('.chart').easyPieChart({
-               animate: {
-                  duration: 1000,
-                  enabled: true
-               }
-            });
-         });
-      });
-      randomBackground();
-   </script>
+   <script src="./js/models.js"></script>
+   <script src="./js/jquery.easypiechart.min.js"></script>
+   <script src="./js/index.js"></script>
    <script src="./js/chat.js"></script>
 </body>
 </html>
