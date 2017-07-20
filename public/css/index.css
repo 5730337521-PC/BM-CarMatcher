@@ -37,10 +37,10 @@
 
 .VRchkbox-text{
    font-size: 18  px;
-   transform: translate(-50%,-50%);
+   transform: translate(0%,-50%);
    position: absolute;
    top: 50%;
-   /*left: 50%;*/
+   left: 0%;
    width: 350px;
    text-align: left;
    margin-left: 20px;
@@ -90,8 +90,8 @@
    left: 3px;
    z-index: 1;
    background: #fcfff4;
-   background: -webkit-linear-gradient(top, #eee 0%, #cdc 40%, #aaa 100%);
-   background: linear-gradient(to bottom, #eee 0%, #cdc 40%, #aaa 100%);
+   background: -webkit-linear-gradient(top, #eee 0%, #ccc 40%, #aaa 100%);
+   background: linear-gradient(to bottom, #eee 0%, #ccc 40%, #aaa 100%);
    border-radius: 50px;
    -webkit-transition: all 0.4s ease;
    transition: all 0.4s ease;
@@ -405,6 +405,30 @@ input {
    .social-fb-login{
       width: 90vw;
       font-size: 4vw;
+   }
+   .VRchkbox-field{
+      width: 90vw;
+   }
+   .VRchkbox-text{
+      font-size: 4vw;
+   }
+   .VRcheckbox {
+      /*transform: translate(-50%,-50%);*/
+   }
+   .VRcheckbox:after {
+      right: 10px;
+      font-size: 4vw;
+   }
+   .VRcheckbox:before {
+      font-size: 4vw;
+   }
+   .VRcheckbox label {
+
+   }
+   .VRcheckbox input[type=checkbox] {
+   }
+   .VRcheckbox input[type=checkbox]:checked + label {
+      left: 43px;
    }
    .header img{
       max-height: 80px;
