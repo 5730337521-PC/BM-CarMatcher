@@ -463,6 +463,8 @@ function personality_stat_show(){
 
 var VRon=false;
 
+document.getElementById("VRcheckbox").disabled = true;
+
 function checkboxonlick(){
    if(!VRon){
          $('#VRcheckbox').prop('checked', true);
