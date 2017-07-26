@@ -2,13 +2,13 @@
 Car matcher web application for IBM Bluemix,Watson,WCA DEMO
 https://carmatcher-personality-beta.mybluemix.net/
 
-*Bluemix Service include:*
+**Bluemix Service include:**
 1. Watson Personality Insight
 1. Watson Conversation
 1. Watason Visual Recognition
 1. Cloudant NoSQL DB
 
-*To doplay this app*
+**To doplay this app**
 1. You need your own facebook application with the following login permission approved*
    1. email
    1. user_about_me
