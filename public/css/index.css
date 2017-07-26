@@ -393,7 +393,7 @@ input {
       font-size: 5.2vw;
    }
    .social-twbox{
-      width: 90vw;
+      width: auto;
    }
    .social-twbox-input{
       width: calc(75vw - 50px);
@@ -403,11 +403,11 @@ input {
       right : -0.25vw;
    }
    .social-fb-login{
-      width: 90vw;
       font-size: 4vw;
+      width: 100%;
    }
    .VRchkbox-field{
-      width: 90vw;
+      width: auto;
    }
    .VRchkbox-text{
       font-size: 4vw;
