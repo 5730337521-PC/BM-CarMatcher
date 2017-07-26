@@ -8,7 +8,7 @@ https://carmatcher-personality-beta.mybluemix.net/
 1. Watason Visual Recognition
 1. Cloudant NoSQL DB
 
-**To doploy this app**
+**To deploy this app**
 1. You need your own facebook application with the following login permission approved*
    1. email
    1. user_about_me
