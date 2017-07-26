@@ -411,6 +411,7 @@ input {
    }
    .VRchkbox-text{
       font-size: 4vw;
+      width: calc(100% - 18px);
    }
    .VRcheckbox {
       /*transform: translate(-50%,-50%);*/
